@@ -35,9 +35,13 @@ namespace PetLove.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PetLove.API", Version = "v1" });
             });
 
+           // Conexão com o Banco de Dados
             services.AddDbContext<PetLoveContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SqlServer"))
             );
+
+            // Adicionamos a injeção de dependência
+            services.AddTransient<PetLoveContext, PetLoveContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
