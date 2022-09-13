@@ -53,5 +53,28 @@ namespace PetLove.API.Controllers
                 });
             }
         }
+
+        [HttpGet("{id}")]
+        public IActionResult BuscarEspecialidadePorId(int id)
+        {
+            try
+            {
+                var retorno = repositorio.BuscarPorId(id);
+                if(retorno == null)
+                {
+                    return NotFound(new {Message = "Especialidade não encontrada"});
+                }
+
+                return Ok(retorno);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }

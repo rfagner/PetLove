@@ -23,7 +23,7 @@ namespace PetLove.API.Repositories
 
         public TipoUsuario BuscarPorId(int id)
         {
-            throw new System.NotImplementedException();
+           return contextoBanco.TipoUsuario.Find(id);
         }
 
         public void Excluir(TipoUsuario tipoUsuario)

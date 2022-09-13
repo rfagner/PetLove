@@ -23,7 +23,7 @@ namespace PetLove.API.Repositories
 
         public Paciente BuscarPorId(int id)
         {
-            throw new System.NotImplementedException();
+            return contextoBanco.Paciente.Find(id);
         }
 
         public void Excluir(Paciente paciente)

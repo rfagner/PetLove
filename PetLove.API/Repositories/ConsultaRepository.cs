@@ -24,7 +24,7 @@ namespace PetLove.API.Repositories
 
         public Consulta BuscarPorId(int id)
         {
-            throw new System.NotImplementedException();
+            return contextoBanco.Consulta.Find(id);
         }
 
         public void Excluir(Consulta consulta)
