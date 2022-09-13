@@ -3,6 +3,7 @@ using PetLove.API.Contexts;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PetLove.API.Repositories
 {
@@ -40,7 +41,7 @@ namespace PetLove.API.Repositories
 
         public ICollection<Consulta> ListarTodos()
         {
-            throw new System.NotImplementedException();
+            return contextoBanco.Consulta.ToList();
         }
     }
 }

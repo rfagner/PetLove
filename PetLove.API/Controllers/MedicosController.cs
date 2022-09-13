@@ -35,5 +35,23 @@ namespace PetLove.API.Controllers
                 });
             }
         }
+
+        [HttpGet]
+        public IActionResult Listar()
+        {
+            try
+            {
+                var retorno = repositorio.ListarTodos();
+                return Ok(retorno);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }
