@@ -32,7 +32,9 @@ namespace PetLove.API.Repositories
 
         public TipoUsuario Inserir(TipoUsuario tipoUsuario)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.TipoUsuario.Add(tipoUsuario);
+            contextoBanco.SaveChanges();
+            return tipoUsuario;
         }
 
         public ICollection<TipoUsuario> ListarTodos()

@@ -9,6 +9,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using PetLove.API.Contexts;
+using PetLove.API.Interfaces;
+using PetLove.API.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +44,12 @@ namespace PetLove.API
 
             // Adicionamos a injeção de dependência
             services.AddTransient<PetLoveContext, PetLoveContext>();
+            services.AddTransient<IConsultaRepository, ConsultaRepository>();
+            services.AddTransient<IEspecialidadeRepository, EspecialidadeRepository>();
+            services.AddTransient<IMedicoRepository, MedicoRepository>();
+            services.AddTransient<IPacienteRepository, PacienteRepository>();
+            services.AddTransient<ITipoUsuarioRepository, TipoUsuarioRepository>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

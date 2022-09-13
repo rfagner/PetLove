@@ -32,7 +32,9 @@ namespace PetLove.API.Repositories
 
         public Medico Inserir(Medico medico)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Medico.Add(medico);
+            contextoBanco.SaveChanges();
+            return medico;
         }
 
         public ICollection<Medico> ListarTodos()

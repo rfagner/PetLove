@@ -32,7 +32,9 @@ namespace PetLove.API.Repositories
 
         public Usuario Inserir(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Usuario.Add(usuario);
+            contextoBanco.SaveChanges();
+            return usuario;
         }
 
         public ICollection<Usuario> ListarTodos()

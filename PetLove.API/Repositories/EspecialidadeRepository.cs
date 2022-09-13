@@ -32,7 +32,9 @@ namespace PetLove.API.Repositories
 
         public Especialidade Inserir(Especialidade especialidade)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Especialidade.Add(especialidade);
+            contextoBanco.SaveChanges();
+            return especialidade;
         }
 
         public ICollection<Especialidade> ListarTodos()

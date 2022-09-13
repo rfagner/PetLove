@@ -1,4 +1,5 @@
-﻿using PetLove.API.Contexts;
+﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using PetLove.API.Contexts;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
 using System.Collections.Generic;
@@ -32,7 +33,9 @@ namespace PetLove.API.Repositories
 
         public Consulta Inserir(Consulta consulta)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Consulta.Add(consulta);
+            contextoBanco.SaveChanges();
+            return consulta;
         }
 
         public ICollection<Consulta> ListarTodos()
