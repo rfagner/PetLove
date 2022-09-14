@@ -1,4 +1,5 @@
-﻿using PetLove.API.Models;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using PetLove.API.Models;
 using System.Collections.Generic;
 
 namespace PetLove.API.Interfaces
@@ -19,5 +20,8 @@ namespace PetLove.API.Interfaces
 
         // DELETE
         void Excluir(Usuario usuario);
+
+        // PATCH
+        void AlterarParcialmente(JsonPatchDocument patchUsuario, Usuario usuario);
     }
 }

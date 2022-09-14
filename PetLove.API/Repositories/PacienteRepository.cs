@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.EntityFrameworkCore;
 using PetLove.API.Contexts;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
@@ -20,6 +21,16 @@ namespace PetLove.API.Repositories
         public void Alterar(Paciente paciente)
         {
             // Compara a base de dados atual do Paciente e vê se tem modificações
+            contextoBanco.Entry(paciente).State = EntityState.Modified;
+            contextoBanco.SaveChanges();
+        }
+
+        public void AlterarParcialmente(JsonPatchDocument patchPaciente, Paciente paciente)
+        {
+            // Pega as alterações que mandar pelo patch e aplica no objeto
+            patchPaciente.ApplyTo(paciente);
+
+            // Compara a base de dados atual da Paciente e vê se tem modificações
             contextoBanco.Entry(paciente).State = EntityState.Modified;
             contextoBanco.SaveChanges();
         }

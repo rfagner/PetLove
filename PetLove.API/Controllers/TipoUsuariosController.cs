@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
@@ -99,6 +100,37 @@ namespace PetLove.API.Controllers
                 repositorio.Alterar(tipoUsuario);
 
                 return NoContent();
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchTipoUsuario)
+        {
+            try
+            {
+                if (patchTipoUsuario == null)
+                {
+                    return BadRequest();
+                }
+
+                // Temos que buscar o objeto
+                var tipoUsuario = repositorio.BuscarPorId(id);
+                if (tipoUsuario == null)
+                {
+                    return NotFound(new { Message = "Tipo Usuário não encontrado" });
+                }
+
+                repositorio.AlterarParcialmente(patchTipoUsuario, tipoUsuario);
+
+                return Ok(tipoUsuario);
             }
             catch (System.Exception ex)
             {

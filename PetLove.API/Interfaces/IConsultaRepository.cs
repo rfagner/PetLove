@@ -1,4 +1,5 @@
-﻿using PetLove.API.Models;
+﻿using Microsoft.AspNetCore.JsonPatch;
+using PetLove.API.Models;
 using System.Collections.Generic;
 
 namespace PetLove.API.Interfaces
@@ -18,6 +19,9 @@ namespace PetLove.API.Interfaces
         void Alterar(Consulta consulta);
 
         // DELETE
-        void Excluir(Consulta consulta); 
+        void Excluir(Consulta consulta);
+
+        // PATCH
+        void AlterarParcialmente(JsonPatchDocument patchConsulta, Consulta consulta);
     }
 }
