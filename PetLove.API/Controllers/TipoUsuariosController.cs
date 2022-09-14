@@ -141,5 +141,31 @@ namespace PetLove.API.Controllers
                 });
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Excluir(int id)
+        {
+            try
+            {
+                // Temos que buscar o objeto
+                var tipoUsuario = repositorio.BuscarPorId(id);
+                if (tipoUsuario == null)
+                {
+                    return NotFound(new { Message = "Tipo Usuário não encontrado" });
+                }
+
+                repositorio.Excluir(tipoUsuario);
+
+                return NoContent();
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }

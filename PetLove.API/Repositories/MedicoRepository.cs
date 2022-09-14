@@ -42,7 +42,8 @@ namespace PetLove.API.Repositories
 
         public void Excluir(Medico medico)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Medico.Remove(medico);
+            contextoBanco.SaveChanges();
         }
 
         public Medico Inserir(Medico medico)

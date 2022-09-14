@@ -42,7 +42,8 @@ namespace PetLove.API.Repositories
 
         public void Excluir(Usuario usuario)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Usuario.Remove(usuario);
+            contextoBanco.SaveChanges();
         }
 
         public Usuario Inserir(Usuario usuario)

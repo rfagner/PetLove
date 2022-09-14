@@ -125,12 +125,38 @@ namespace PetLove.API.Controllers
                 var usuario = repositorio.BuscarPorId(id);
                 if (usuario == null)
                 {
-                    return NotFound(new { Message = "Usuário não encontrada" });
+                    return NotFound(new { Message = "Usuário não encontrado" });
                 }
 
                 repositorio.AlterarParcialmente(patchUsuario, usuario);
 
                 return Ok(usuario);
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Excluir(int id)
+        {
+            try
+            {
+                // Temos que buscar o objeto
+                var usuario = repositorio.BuscarPorId(id);
+                if (usuario == null)
+                {
+                    return NotFound(new { Message = "Usuário não encontrado" });
+                }
+
+                repositorio.Excluir(usuario);
+
+                return NoContent();
             }
             catch (System.Exception ex)
             {

@@ -141,5 +141,31 @@ namespace PetLove.API.Controllers
                 });
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Excluir(int id)
+        {
+            try
+            {
+                // Temos que buscar o objeto
+                var especialidade = repositorio.BuscarPorId(id);
+                if (especialidade == null)
+                {
+                    return NotFound(new { Message = "Especialidade não encontrada" });
+                }
+
+                repositorio.Excluir(especialidade);
+
+                return NoContent();
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }

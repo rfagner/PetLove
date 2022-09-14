@@ -43,7 +43,8 @@ namespace PetLove.API.Repositories
 
         public void Excluir(Consulta consulta)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Consulta.Remove(consulta);
+            contextoBanco.SaveChanges();
         }
 
         public Consulta Inserir(Consulta consulta)

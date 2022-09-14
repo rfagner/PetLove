@@ -42,7 +42,8 @@ namespace PetLove.API.Repositories
 
         public void Excluir(Especialidade especialidade)
         {
-            throw new System.NotImplementedException();
+            contextoBanco.Especialidade.Remove(especialidade);
+            contextoBanco.SaveChanges();
         }
 
         public Especialidade Inserir(Especialidade especialidade)
