@@ -76,5 +76,38 @@ namespace PetLove.API.Controllers
                 });
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Alterar(int id, Medico medico)
+        {
+            try
+            {
+                // Verificar se o Id bate com o objeto 
+                if (id != medico.Id)
+                {
+                    return BadRequest(new { Message = "Dados não conferem" });
+                }
+
+                // Verificar se Id existe no banco
+                var retorno = repositorio.BuscarPorId(id);
+                if (retorno == null)
+                {
+                    return NotFound(new { Message = "Médico não encontrado" });
+                }
+
+                // Altera efetivamente o objeto medico
+                repositorio.Alterar(medico);
+
+                return NoContent();
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }

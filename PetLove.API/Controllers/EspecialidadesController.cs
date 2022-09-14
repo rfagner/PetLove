@@ -76,5 +76,38 @@ namespace PetLove.API.Controllers
                 });
             }
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Alterar(int id, Especialidade especialidade)
+        {
+            try
+            {
+                // Verificar se o Id bate com o objeto 
+                if (id != especialidade.Id)
+                {
+                    return BadRequest(new { Message = "Dados não conferem" });
+                }
+
+                // Verificar se Id existe no banco
+                var retorno = repositorio.BuscarPorId(id);
+                if (retorno == null)
+                {
+                    return NotFound(new { Message = "Especialidade não encontrada" });
+                }
+
+                // Altera efetivamente a especialidade
+                repositorio.Alterar(especialidade);
+
+                return NoContent();
+            }
+            catch (System.Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Error = "Falha na transação",
+                    Message = ex.Message,
+                });
+            }
+        }
     }
 }

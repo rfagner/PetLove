@@ -1,4 +1,5 @@
-﻿using PetLove.API.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using PetLove.API.Contexts;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
 using System.Collections.Generic;
@@ -18,7 +19,9 @@ namespace PetLove.API.Repositories
 
         public void Alterar(Medico medico)
         {
-            throw new System.NotImplementedException();
+            // Compara a base de dados atual do Medico e vê se tem modificações
+            contextoBanco.Entry(medico).State = EntityState.Modified;
+            contextoBanco.SaveChanges();
         }
 
         public Medico BuscarPorId(int id)

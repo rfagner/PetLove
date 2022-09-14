@@ -39,7 +39,7 @@ namespace PetLove.API
 
            // Conexão com o Banco de Dados
             services.AddDbContext<PetLoveContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SqlServer"))
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServer")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
 
             // Adicionamos a injeção de dependência

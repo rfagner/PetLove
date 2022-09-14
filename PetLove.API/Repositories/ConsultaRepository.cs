@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using PetLove.API.Contexts;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
@@ -19,7 +20,9 @@ namespace PetLove.API.Repositories
 
         public void Alterar(Consulta consulta)
         {
-            throw new System.NotImplementedException();
+            // Compara a base de dados atual da Consulta e vê se tem modificações
+            contextoBanco.Entry(consulta).State = EntityState.Modified;
+            contextoBanco.SaveChanges();
         }
 
         public Consulta BuscarPorId(int id)
