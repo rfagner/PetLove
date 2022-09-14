@@ -19,6 +19,11 @@ namespace PetLove.API.Controllers
             repositorio = _repositorio;
         }
 
+        /// <summary>
+        /// Cadastra pacientes na aplicação
+        /// </summary>
+        /// <param name="paciente">Dados de paciente</param>
+        /// <returns>Dados do paciente cadastrado</returns>
         [HttpPost]
         public IActionResult Cadastrar(Paciente paciente)
         {
@@ -37,6 +42,10 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Lista todos os pacientes da aplicação
+        /// </summary>
+        /// <returns>Lista de pacientes</returns>
         [HttpGet]
         public IActionResult Listar()
         {
@@ -55,6 +64,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca um paciente pelo Id
+        /// </summary>
+        /// <param name="id">Id de paciente</param>
+        /// <returns>Dados de paciente</returns>
         [HttpGet("{id}")]
         public IActionResult BuscarPacientesPorId(int id)
         {
@@ -78,6 +92,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados de um paciente
+        /// </summary>
+        /// <param name="id">Id do paciente</param>
+        /// <param name="paciente">Todas as informações do paciente</param>
+        /// <returns>Paciente alterado</returns>
         [HttpPut("{id}")]
         public IActionResult Alterar(int id, Paciente paciente)
         {
@@ -111,6 +131,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados parcial de um paciente
+        /// </summary>
+        /// <param name="id">Id de paciente</param>
+        /// <param name="patchPaciente">Dados de paciente</param>
+        /// <returns>Dados parciais de paciente alterado</returns>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchPaciente)
         {
@@ -142,6 +168,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Exclui um paciente da aplicação
+        /// </summary>
+        /// <param name="id">Id do paciente</param>
+        /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
@@ -156,7 +187,10 @@ namespace PetLove.API.Controllers
 
                 repositorio.Excluir(paciente);
 
-                return NoContent();
+                return Ok(new
+                {
+                    msg = "Paciente excluído com sucesso"
+                });
             }
             catch (System.Exception ex)
             {

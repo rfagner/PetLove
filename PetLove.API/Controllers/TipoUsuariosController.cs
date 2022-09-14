@@ -19,6 +19,11 @@ namespace PetLove.API.Controllers
             repositorio = _repositorio;
         }
 
+        /// <summary>
+        /// Cadastra TipoUsuario na aplicação
+        /// </summary>
+        /// <param name="tipoUsuario">Id do TipoUsuario</param>
+        /// <returns>Dados do TipoUsuario cadastrado</returns>
         [HttpPost]
         public IActionResult Cadastrar(TipoUsuario tipoUsuario)
         {
@@ -37,6 +42,10 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Lista todos os TipoUsuario da aplicação
+        /// </summary>
+        /// <returns>Lista de TipoUsuario</returns>
         [HttpGet]
         public IActionResult Listar()
         {
@@ -55,6 +64,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca um TipoUsuario pelo Id
+        /// </summary>
+        /// <param name="id">Id do TipoUsuario</param>
+        /// <returns>Dados do TipoUsuario</returns>
         [HttpGet("{id}")]
         public IActionResult BuscarTipoUsuarioPorId(int id)
         {
@@ -78,6 +92,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados de um TipoUsuario
+        /// </summary>
+        /// <param name="id">Id do TipoUsuario</param>
+        /// <param name="tipoUsuario">Todas as informações do TipoUsuario</param>
+        /// <returns>TipoUsuario alterado</returns>
         [HttpPut("{id}")]
         public IActionResult Alterar(int id, TipoUsuario tipoUsuario)
         {
@@ -111,6 +131,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados parcial de um TipoUsuario
+        /// </summary>
+        /// <param name="id">Id de TipoUsuario</param>
+        /// <param name="patchTipoUsuario">Dados de TipoUsuario</param>
+        /// <returns>Dados parciais do TipoUsuario alterado</returns>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchTipoUsuario)
         {
@@ -142,6 +168,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Exclui um TipoUsuario da aplicação
+        /// </summary>
+        /// <param name="id">Id do TipoUsuario</param>
+        /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
@@ -156,7 +187,10 @@ namespace PetLove.API.Controllers
 
                 repositorio.Excluir(tipoUsuario);
 
-                return NoContent();
+                return Ok(new
+                {
+                    msg = "TipoUsuario excluído com sucesso"
+                });
             }
             catch (System.Exception ex)
             {

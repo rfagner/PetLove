@@ -19,6 +19,11 @@ namespace PetLove.API.Controllers
             repositorio = _repositorio;
         }
 
+        /// <summary>
+        /// Cadastra usuários na aplicação
+        /// </summary>
+        /// <param name="usuario">Id do usuário</param>
+        /// <returns>Dados do usuário cadastrado</returns>
         [HttpPost]
         public IActionResult Cadastrar(Usuario usuario)
         {
@@ -37,6 +42,10 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Lista todos os usuários da aplicação
+        /// </summary>
+        /// <returns>Lista de usuários</returns>
         [HttpGet]
         public IActionResult Listar()
         {
@@ -55,6 +64,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca um usuário pelo Id
+        /// </summary>
+        /// <param name="id">Id do usuário</param>
+        /// <returns>Dados do usuário</returns>
         [HttpGet("{id}")]
         public IActionResult BuscarUsuarioPorId(int id)
         {
@@ -78,6 +92,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados de um usuário
+        /// </summary>
+        /// <param name="id">Id do usuário</param>
+        /// <param name="usuario">Todas as informações do usuário</param>
+        /// <returns>Usuário alterado</returns>
         [HttpPut("{id}")]
         public IActionResult Alterar(int id, Usuario usuario)
         {
@@ -111,6 +131,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados parcial de um usuário
+        /// </summary>
+        /// <param name="id">Id de usuário</param>
+        /// <param name="patchUsuario">Dados de usuário</param>
+        /// <returns>Dados parciais do usuário alterado</returns>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchUsuario)
         {
@@ -142,6 +168,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Exclui um usuário da aplicação
+        /// </summary>
+        /// <param name="id">Id do usuário</param>
+        /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
@@ -156,7 +187,10 @@ namespace PetLove.API.Controllers
 
                 repositorio.Excluir(usuario);
 
-                return NoContent();
+                return Ok(new
+                {
+                    msg = "Usuário excluído com sucesso"
+                });
             }
             catch (System.Exception ex)
             {

@@ -19,6 +19,11 @@ namespace PetLove.API.Controllers
             repositorio = _repositorio;
         }
 
+        /// <summary>
+        /// Cadastra especialidades na aplicação
+        /// </summary>
+        /// <param name="especialidade">Dados da especialidade</param>
+        /// <returns>Dados de especialidades cadastrados</returns>
         [HttpPost]
         public IActionResult Cadastrar(Especialidade especialidade)
         {
@@ -37,6 +42,10 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Lista todas as especialidades da aplicação
+        /// </summary>
+        /// <returns>Lista de especialidades</returns>
         [HttpGet]
         public IActionResult Listar()
         {
@@ -55,6 +64,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Busca uma especialidade pelo Id
+        /// </summary>
+        /// <param name="id">Id da especialidade</param>
+        /// <returns>Dados da especialidade</returns>
         [HttpGet("{id}")]
         public IActionResult BuscarEspecialidadePorId(int id)
         {
@@ -78,6 +92,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados de uma especialidade
+        /// </summary>
+        /// <param name="id">Id da especialidade</param>
+        /// <param name="especialidade">Todas as informações da especialidade</param>
+        /// <returns>Especialidade alterada</returns>
         [HttpPut("{id}")]
         public IActionResult Alterar(int id, Especialidade especialidade)
         {
@@ -111,6 +131,12 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Altera os dados parcial de uma especialidade
+        /// </summary>
+        /// <param name="id">Id da especialidade</param>
+        /// <param name="patchEspecialidade">Dados da especialidade</param>
+        /// <returns>Dados parciais da especialidade alterados</returns>
         [HttpPatch("{id}")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchEspecialidade)
         {
@@ -142,6 +168,11 @@ namespace PetLove.API.Controllers
             }
         }
 
+        /// <summary>
+        /// Exclui uma especialidade da aplicação
+        /// </summary>
+        /// <param name="id">Id da especialidade</param>
+        /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
@@ -156,7 +187,10 @@ namespace PetLove.API.Controllers
 
                 repositorio.Excluir(especialidade);
 
-                return NoContent();
+                return Ok(new
+                {
+                    msg = "Especialidade excluída com sucesso"
+                });
             }
             catch (System.Exception ex)
             {

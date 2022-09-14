@@ -13,7 +13,9 @@ using PetLove.API.Interfaces;
 using PetLove.API.Repositories;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PetLove.API
@@ -34,7 +36,27 @@ namespace PetLove.API
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "PetLove.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "PetLove.API", 
+                    Version = "v1", 
+                    Description = "API para o ramo da saúde, que inicialmente focará em consultas agendadas, com diferentes médicos veterinários disponíveis na clínica em determinados dias e horários da semana.",
+                    TermsOfService = new Uri("https://github.com/rfagner"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Renildo Fagner",
+                        Url = new Uri("https://www.linkedin.com/in/rfagner/")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Github",
+                        Url = new Uri("https://github.com/rfagner")
+                    }
+                });
+
+                // Adicionar configurações ectras da documentação, para ler os XMLs
+                var xmlArquivo = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlArquivo));
+
             });
 
            // Conexão com o Banco de Dados
