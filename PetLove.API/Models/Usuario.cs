@@ -10,7 +10,7 @@ namespace PetLove.API.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Informe seu nome")]
-        [MinLength(5)]
+        [MinLength(3)]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Informe seu email")]
