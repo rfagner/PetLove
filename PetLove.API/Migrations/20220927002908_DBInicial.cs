@@ -128,7 +128,7 @@ namespace PetLove.API.Migrations
                         column: x => x.IdPaciente,
                         principalTable: "Paciente",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict); // Cascade
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

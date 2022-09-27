@@ -16,6 +16,7 @@ namespace PetLove.API.Models
     public enum UsuarioTipo
     {
         Paciente,
-        Medico
+        Medico,
+        Desenvolvedor
     }
 }

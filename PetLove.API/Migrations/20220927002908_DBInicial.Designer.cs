@@ -10,7 +10,7 @@ using PetLove.API.Contexts;
 namespace PetLove.API.Migrations
 {
     [DbContext(typeof(PetLoveContext))]
-    [Migration("20220911031648_DBInicial")]
+    [Migration("20220927002908_DBInicial")]
     partial class DBInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -29,6 +29,8 @@ namespace PetLove.API.Controllers
         {
             try
             {
+                usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
+                
                 var retorno = repositorio.Inserir(usuario);
                 return Ok(retorno);
             }
@@ -108,6 +110,8 @@ namespace PetLove.API.Controllers
                 {
                     return BadRequest(new { Message = "Dados não conferem" });
                 }
+
+                usuario.Senha = BCrypt.Net.BCrypt.HashPassword(usuario.Senha);
 
                 // Verificar se Id existe no banco
                 var retorno = repositorio.BuscarPorId(id);

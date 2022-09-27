@@ -66,6 +66,7 @@ namespace PetLove.API
 
             // Adicionamos a injeção de dependência
             services.AddTransient<PetLoveContext, PetLoveContext>();
+            services.AddTransient<ILoginRepository, LoginRepository>();
             services.AddTransient<IConsultaRepository, ConsultaRepository>();
             services.AddTransient<IEspecialidadeRepository, EspecialidadeRepository>();
             services.AddTransient<IMedicoRepository, MedicoRepository>();
