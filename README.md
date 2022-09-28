@@ -42,13 +42,15 @@ A aplicação consiste em:<br><br>
 # Tecnologias usadas
 - C#<br><br>
 - .NET 5<br><br>
-- ASP.NET<br><br>
+- ASP.NET Core<br><br>
 - Entity Framework Core<br><br>
 - Repository Pattern<br><br>
 - Singleton<br><br>
 - Postman<br><br>
 - SQL Server<br><br>
 - Swagger<br><br>
+- Biblioteca para Criptografia BCrypt<br><br>
+- JWT Jason Web Token
 
 # Como executar o projeto
 
