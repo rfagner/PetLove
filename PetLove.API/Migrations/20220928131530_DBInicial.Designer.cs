@@ -10,7 +10,7 @@ using PetLove.API.Contexts;
 namespace PetLove.API.Migrations
 {
     [DbContext(typeof(PetLoveContext))]
-    [Migration("20220927002908_DBInicial")]
+    [Migration("20220928131530_DBInicial")]
     partial class DBInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,8 +122,9 @@ namespace PetLove.API.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Tipo")
-                        .HasColumnType("int");
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

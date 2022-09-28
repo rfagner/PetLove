@@ -37,7 +37,11 @@ namespace PetLove.API.Repositories
 
         public Paciente BuscarPorId(int id)
         {
-            return contextoBanco.Paciente.Find(id);
+            var listarPacientePorId = contextoBanco.Paciente
+                .Include(u => u.Usuario)
+                    .ThenInclude(t => t.TipoUsuario)
+                .FirstOrDefault(p => p.Id == id);
+            return listarPacientePorId;
         }
 
         public void Excluir(Paciente paciente)
@@ -55,7 +59,11 @@ namespace PetLove.API.Repositories
 
         public ICollection<Paciente> ListarTodos()
         {
-            return contextoBanco.Paciente.ToList();
+            var listarPaciente = contextoBanco.Paciente                
+                .Include(u => u.Usuario)
+                    .ThenInclude(t => t.TipoUsuario)
+                .ToList();
+            return listarPaciente.ToList();
         }
     }
 }

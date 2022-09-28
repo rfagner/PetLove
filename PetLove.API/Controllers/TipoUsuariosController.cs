@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
+using System.Data;
 
 namespace PetLove.API.Controllers
 {
@@ -24,7 +26,8 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <param name="tipoUsuario">Id do TipoUsuario</param>
         /// <returns>Dados do TipoUsuario cadastrado</returns>
-        [HttpPost]
+        [HttpPost]        
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Cadastrar(TipoUsuario tipoUsuario)
         {
             try
@@ -47,6 +50,7 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <returns>Lista de TipoUsuario</returns>
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult Listar()
         {
             try
@@ -70,6 +74,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id do TipoUsuario</param>
         /// <returns>Dados do TipoUsuario</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult BuscarTipoUsuarioPorId(int id)
         {
             try
@@ -99,6 +104,7 @@ namespace PetLove.API.Controllers
         /// <param name="tipoUsuario">Todas as informações do TipoUsuario</param>
         /// <returns>TipoUsuario alterado</returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Alterar(int id, TipoUsuario tipoUsuario)
         {
             try
@@ -138,6 +144,7 @@ namespace PetLove.API.Controllers
         /// <param name="patchTipoUsuario">Dados de TipoUsuario</param>
         /// <returns>Dados parciais do TipoUsuario alterado</returns>
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchTipoUsuario)
         {
             try
@@ -174,6 +181,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id do TipoUsuario</param>
         /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Excluir(int id)
         {
             try

@@ -4,6 +4,6 @@ namespace PetLove.API.Interfaces
 {
     public interface ILoginRepository
     {
-        Usuario Logar(string email, string senha);
+        string Logar(string email, string senha);
     }
 }

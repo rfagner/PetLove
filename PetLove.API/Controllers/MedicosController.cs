@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
+using System.Data;
 
 namespace PetLove.API.Controllers
 {
@@ -18,17 +20,19 @@ namespace PetLove.API.Controllers
         {
             repositorio = _repositorio;
         }
-        
+
         /// <summary>
         /// Cadastra médicos na aplicação
         /// </summary>
         /// <param name="medico">Id do médico</param>
         /// <returns>Dados do médico cadastrado</returns>
         [HttpPost]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Cadastrar(Medico medico)
         {
             try
             {
+                medico.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(medico.Usuario.Senha);
                 var retorno = repositorio.Inserir(medico);
                 return Ok(retorno);
             }
@@ -47,6 +51,7 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <returns>Lista de médicos</returns>
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult Listar()
         {
             try
@@ -70,6 +75,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id do médico</param>
         /// <returns>Dados do médico</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult MedicoPorId(int id)
         {
             try
@@ -99,6 +105,7 @@ namespace PetLove.API.Controllers
         /// <param name="medico">Todas as informações do médico</param>
         /// <returns>Médico alterado</returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Alterar(int id, Medico medico)
         {
             try
@@ -115,7 +122,7 @@ namespace PetLove.API.Controllers
                 {
                     return NotFound(new { Message = "Médico não encontrado" });
                 }
-
+                medico.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(medico.Usuario.Senha);
                 // Altera efetivamente o objeto medico
                 repositorio.Alterar(medico);
 
@@ -138,6 +145,7 @@ namespace PetLove.API.Controllers
         /// <param name="patchMedico">Dados de médico</param>
         /// <returns>Dados parciais do médico alterado</returns>
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchMedico)
         {
             try
@@ -153,7 +161,7 @@ namespace PetLove.API.Controllers
                 {
                     return NotFound(new { Message = "Médico não encontrado" });
                 }
-
+                medico.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(medico.Usuario.Senha);
                 repositorio.AlterarParcialmente(patchMedico, medico);
 
                 return Ok(medico);
@@ -174,6 +182,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id do médico</param>
         /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Excluir(int id)
         {
             try

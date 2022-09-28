@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
+using System.Data;
 
 namespace PetLove.API.Controllers
 {
@@ -25,10 +27,12 @@ namespace PetLove.API.Controllers
         /// <param name="paciente">Dados de paciente</param>
         /// <returns>Dados do paciente cadastrado</returns>
         [HttpPost]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Cadastrar(Paciente paciente)
         {
             try
             {
+                paciente.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(paciente.Usuario.Senha);
                 var retorno = repositorio.Inserir(paciente);
                 return Ok(retorno);
             }
@@ -47,6 +51,7 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <returns>Lista de pacientes</returns>
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Paciente, Medico")]
         public IActionResult Listar()
         {
             try
@@ -70,6 +75,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id de paciente</param>
         /// <returns>Dados de paciente</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Paciente, Medico")]
         public IActionResult BuscarPacientesPorId(int id)
         {
             try
@@ -99,6 +105,7 @@ namespace PetLove.API.Controllers
         /// <param name="paciente">Todas as informações do paciente</param>
         /// <returns>Paciente alterado</returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Alterar(int id, Paciente paciente)
         {
             try
@@ -108,7 +115,7 @@ namespace PetLove.API.Controllers
                 {
                     return BadRequest(new { Message = "Dados não conferem" });
                 }
-
+                paciente.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(paciente.Usuario.Senha);
                 // Verificar se Id existe no banco
                 var retorno = repositorio.BuscarPorId(id);
                 if (retorno == null)
@@ -138,6 +145,7 @@ namespace PetLove.API.Controllers
         /// <param name="patchPaciente">Dados de paciente</param>
         /// <returns>Dados parciais de paciente alterado</returns>
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchPaciente)
         {
             try
@@ -153,7 +161,7 @@ namespace PetLove.API.Controllers
                 {
                     return NotFound(new { Message = "Paciente não encontrado" });
                 }
-
+                paciente.Usuario.Senha = BCrypt.Net.BCrypt.HashPassword(paciente.Usuario.Senha);
                 repositorio.AlterarParcialmente(patchPaciente, paciente);
 
                 return Ok(paciente);
@@ -174,6 +182,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id do paciente</param>
         /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Excluir(int id)
         {
             try

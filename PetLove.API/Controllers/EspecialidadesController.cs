@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
+using System.Data;
 
 namespace PetLove.API.Controllers
 {
@@ -25,6 +27,7 @@ namespace PetLove.API.Controllers
         /// <param name="especialidade">Dados da especialidade</param>
         /// <returns>Dados de especialidades cadastrados</returns>
         [HttpPost]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Cadastrar(Especialidade especialidade)
         {
             try
@@ -47,6 +50,7 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <returns>Lista de especialidades</returns>
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult Listar()
         {
             try
@@ -70,6 +74,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id da especialidade</param>
         /// <returns>Dados da especialidade</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult BuscarEspecialidadePorId(int id)
         {
             try
@@ -99,6 +104,7 @@ namespace PetLove.API.Controllers
         /// <param name="especialidade">Todas as informações da especialidade</param>
         /// <returns>Especialidade alterada</returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Alterar(int id, Especialidade especialidade)
         {
             try
@@ -138,6 +144,7 @@ namespace PetLove.API.Controllers
         /// <param name="patchEspecialidade">Dados da especialidade</param>
         /// <returns>Dados parciais da especialidade alterados</returns>
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchEspecialidade)
         {
             try
@@ -174,6 +181,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id da especialidade</param>
         /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Excluir(int id)
         {
             try

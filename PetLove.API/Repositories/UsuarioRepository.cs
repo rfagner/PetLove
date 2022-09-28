@@ -37,7 +37,10 @@ namespace PetLove.API.Repositories
 
         public Usuario BuscarPorId(int id)
         {
-            return contextoBanco.Usuario.Find(id);
+            var listarUsuarioPorId = contextoBanco.Usuario
+                .Include(t => t.TipoUsuario)
+            .FirstOrDefault(p => p.Id == id);
+            return listarUsuarioPorId;
         }
 
         public void Excluir(Usuario usuario)
@@ -55,7 +58,10 @@ namespace PetLove.API.Repositories
 
         public ICollection<Usuario> ListarTodos()
         {
-            return contextoBanco.Usuario.ToList();
+            var listarUsuario = contextoBanco.Usuario
+                .Include(t => t.TipoUsuario)
+                .ToList();
+            return listarUsuario.ToList();
         }
     }
 }

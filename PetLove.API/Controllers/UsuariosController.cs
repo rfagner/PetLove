@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
+using System.Data;
 
 namespace PetLove.API.Controllers
 {
@@ -24,7 +26,8 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <param name="usuario">Id do usuário</param>
         /// <returns>Dados do usuário cadastrado</returns>
-        [HttpPost]
+        [HttpPost]        
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Cadastrar(Usuario usuario)
         {
             try
@@ -49,6 +52,7 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <returns>Lista de usuários</returns>
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult Listar()
         {
             try
@@ -72,6 +76,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id do usuário</param>
         /// <returns>Dados do usuário</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Medico, Paciente")]
         public IActionResult BuscarUsuarioPorId(int id)
         {
             try
@@ -101,6 +106,7 @@ namespace PetLove.API.Controllers
         /// <param name="usuario">Todas as informações do usuário</param>
         /// <returns>Usuário alterado</returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Alterar(int id, Usuario usuario)
         {
             try
@@ -142,6 +148,7 @@ namespace PetLove.API.Controllers
         /// <param name="patchUsuario">Dados de usuário</param>
         /// <returns>Dados parciais do usuário alterado</returns>
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchUsuario)
         {
             try
@@ -178,6 +185,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id do usuário</param>
         /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor")]
         public IActionResult Excluir(int id)
         {
             try

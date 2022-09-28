@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
 using PetLove.API.Models;
+using System.Data;
 
 namespace PetLove.API.Controllers
 {
@@ -25,6 +27,7 @@ namespace PetLove.API.Controllers
         /// <param name="consulta">Dados da consulta</param>
         /// <returns>Dados da consulta cadastrado</returns>
         [HttpPost]
+        [Authorize(Roles = "Desenvolvedor, Paciente")]
         public IActionResult Cadastrar(Consulta consulta)
         {
             try
@@ -47,6 +50,7 @@ namespace PetLove.API.Controllers
         /// </summary>
         /// <returns>Lista de consultas</returns>
         [HttpGet]
+        [Authorize(Roles = "Desenvolvedor, Paciente, Medico")]
         public IActionResult Listar()
         {
             try
@@ -70,6 +74,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id da consulta</param>
         /// <returns>Dados da consulta</returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Paciente, Medico")]
         public IActionResult BuscarConsultasPorId(int id)
         {
             try
@@ -99,6 +104,7 @@ namespace PetLove.API.Controllers
         /// <param name="consulta">Todas as informações da consulta</param>
         /// <returns>Consulta alterada</returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Paciente")]
         public IActionResult Alterar(int id, Consulta consulta)
         {
             try
@@ -138,6 +144,7 @@ namespace PetLove.API.Controllers
         /// <param name="patchConsulta">Dados da consulta</param>
         /// <returns>Dados parciais da consulta alterado</returns>
         [HttpPatch("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Paciente")]
         public IActionResult Patch(int id, [FromBody] JsonPatchDocument patchConsulta)
         {
             try
@@ -174,6 +181,7 @@ namespace PetLove.API.Controllers
         /// <param name="id">Id da consulta</param>
         /// <returns>Mensagem de exclusão</returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Desenvolvedor, Paciente")]
         public IActionResult Excluir(int id)
         {
             try

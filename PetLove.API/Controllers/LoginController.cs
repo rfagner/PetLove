@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PetLove.API.Interfaces;
+using System.Data;
 
 namespace PetLove.API.Controllers
 {
@@ -15,13 +17,14 @@ namespace PetLove.API.Controllers
             repo = _repo;
         }
 
-        [HttpPost]
+        [HttpPost]        
         public IActionResult Logar(string email, string senha)
         {
             var logar = repo.Logar(email, senha);
             if (logar == null)
                 return Unauthorized();
-            return Ok(logar);
+
+            return Ok(new { token = logar });
         }
     }
 }
