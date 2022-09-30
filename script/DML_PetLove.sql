@@ -1,13 +1,14 @@
 /* DML - Data Manipulation Language -> Linguagem de Manipulação de Dados*/
 
 /* Inserir */
-/* Forma 1 */
+
 INSERT INTO TipoUsuario(Tipo) 
 	VALUES 
 		('Desenvolvedor'), 
 		('Medico'), 
 		('Paciente');
 
+		-- Todas as SENHAS são padrão: 123456789 - Para facilitar os testes na aplicação
 
 INSERT INTO Usuario (Nome, Email, Senha, IdTipoUsuario)
 	VALUES 
@@ -69,8 +70,3 @@ INSERT INTO Consulta(DataHora, IdMedico, IdPaciente)
 		('2022-05-11 10:30', 4, 4),
 		('2022-08-01 15:00', 5, 5);
 
-/* Alterar */
---UPDATE Categorias SET Categoria = 'Show' WHERE Id = 1;
-
-/* Excluir */
---DELETE FROM Categorias WHERE Id = 9;

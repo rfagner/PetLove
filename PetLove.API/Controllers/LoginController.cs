@@ -16,7 +16,12 @@ namespace PetLove.API.Controllers
         {
             repo = _repo;
         }
-
+        /// <summary>
+        /// Permite o acesso do usuário na aplicação
+        /// </summary>
+        /// <param name="email">Email do usuário</param>
+        /// <param name="senha">Senha do usuário</param>
+        /// <returns>Usuário logado na aplicação</returns>
         [HttpPost]        
         public IActionResult Logar(string email, string senha)
         {

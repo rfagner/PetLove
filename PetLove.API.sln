@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetLove.API", "PetLove.API\PetLove.API.csproj", "{C0987050-D1D9-47E4-9C40-02FD65229AF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetLove.API", "PetLove.API\PetLove.API.csproj", "{C0987050-D1D9-47E4-9C40-02FD65229AF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetLove.UnitTests", "PetLove.UnitTests\PetLove.UnitTests.csproj", "{3C189D41-9879-4EA2-B002-783C5C67AEE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C0987050-D1D9-47E4-9C40-02FD65229AF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0987050-D1D9-47E4-9C40-02FD65229AF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0987050-D1D9-47E4-9C40-02FD65229AF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C189D41-9879-4EA2-B002-783C5C67AEE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C189D41-9879-4EA2-B002-783C5C67AEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C189D41-9879-4EA2-B002-783C5C67AEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C189D41-9879-4EA2-B002-783C5C67AEE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
