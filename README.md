@@ -51,6 +51,7 @@ A aplicação consiste em:<br><br>
 - Swagger<br><br>
 - Biblioteca para Criptografia BCrypt<br><br>
 - JWT Jason Web Token
+- Testes Unitários com a Biblioteca xUnit
 
 # Como executar o projeto
 
