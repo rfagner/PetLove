@@ -91,8 +91,8 @@ namespace PetLove.API
 
            // Conexão com o Banco de Dados
             services.AddDbContext<PetLoveContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SqlServer")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-                //options.UseSqlServer(Configuration.GetConnectionString("Local")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                options.UseSqlServer(Configuration.GetConnectionString("Azure")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                //options.UseSqlServer(Configuration.GetConnectionString("SqlServer")).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
             // Ignora o Looping
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
